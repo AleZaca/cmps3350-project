@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memory Game</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Color Memory Match Game</title>
+  <style>
+    .card {
+      width: 100px;
+      height: 100px;
+      margin: 5px;
+      float: left;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div id="grid" class="grid">
-      <!-- Grid squares will be generated here -->
-    </div>
-    <button id="startButton">Start Game</button>
-    <div id="message"></div>
-  </div>
-
-  <script src="script.js"></script>
+  <div id="grid"></div>
+  <script src="memory_game.js"></script>
 </body>
 </html>
 

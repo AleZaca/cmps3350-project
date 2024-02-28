@@ -1,40 +1,79 @@
-const grid = document.getElementById('grid');
-const startButton = document.getElementById('startButton');
-const message = document.getElementById('message');
+////array containing different colors for the game
 
-const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange'];
+const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown"];
 
-let path = [];
+///// Function to generate pairs of random colors for the game
 
-startButton.addEventListener('click', startGame);
+const generateRandomColors = () => {
+    // duplicate the colors array to create pairs
+    const duplicatedColors = colors.concat(colors);
+    // Shuffle the colors randomly
+    const shuffledColors = duplicatedColors.sort(() => Math.random() - 0.5);
+    return shuffledColors;
+};
 
-function startGame() {
-  message.textContent = '';
-  path = generatePath();
-  displayPath(path);
-}
+//////function to create the game board dynamically
 
-function generatePath() {
-  const path = [];
-  for (let i = 0; i < 3; i++) {
-    const randomIndex = Math.floor(Math.random() * 3);
-    path.push(randomIndex);
-  }
-  return path;
-}
+const createBoard = () => {
+    // get the game board element from the HTML
+    const gameBoard = document.getElementById("gameBoard");
+    // generate random colors for the game
+    const shuffledColors = generateRandomColors();
+    //array to store selected cards during gameplay
+    let selectedCards = [];
 
-function displayPath(path) {
-  grid.innerHTML = '';
-  path.forEach(index => {
-    const square = document.createElement('div');
-    square.classList.add('square');
-    square.style.backgroundColor = colors[index];
-    square.textContent = index + 1;
-    grid.appendChild(square);
-  });
+    //loop through each shuffled color
+    shuffledColors.forEach(color => {
+        //create a div element for each card
+        const card = document.createElement("div");
+        //set the CSS class for styling
+        card.className = "card";
+        //set default color for each card
+        card.style.backgroundColor = "gray";
+        
+        ////////// Add click event listener to each card
 
-  setTimeout(() => {
-    grid.innerHTML = '';
-  }, 2000); // Display path for 2 seconds
-}
+        card.addEventListener("click", () => {
+            //check if the card is already matched or the maximum number of selected cards(2) is reached
+            if (!selectedCards.includes(card) && selectedCards.length < 2) {
+                //changes the color of the card when it is clicked
+                card.style.backgroundColor = color;
+                //add the selected card to the array
+                selectedCards.push(card);
+                //check if two cards are selected
+                if (selectedCards.length === 2) {
+
+
+                    ////////////////// Set a timeout
+                    setTimeout(() => {
+                        // Check if the selected cards have the same color
+                        if (selectedCards[0].style.backgroundColor === selectedCards[1].style.backgroundColor) {
+                     
+                            //keep the color of matching cards and reset selectedCards array for new selection
+                            selectedCards = [];
+                      
+
+
+                        } else {
+                            //reset unmatched cards to gray and reset array for new selection
+                            selectedCards.forEach(card => {
+                                card.style.backgroundColor = "gray";
+                            });
+                            selectedCards = [];
+                        }
+
+
+
+
+                    }, 1000); // Set timeout duration to 1000 milliseconds(1 second)
+                }
+            }
+        });
+        //append the card to the game board
+        gameBoard.appendChild(card);
+    });
+};
+
+//initialize the game board when the script is executed
+createBoard();
 

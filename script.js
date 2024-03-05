@@ -1,6 +1,7 @@
 ////array containing different colors for the game
 
-const colors = ["red", "orange", "yellow", "green", "blue", "purple", "hotpink", "brown"];
+const colors = ['#ffd7ee', '#ef8f9f', '#de484f', '#ce0000', '#dd5500', '#edaa00', '#fcff00', '#a8e000', '#54c000', '#00a100', '#006b55', '#0036aa', '#0000ff', '#2300cf', '#45009f', '#68006e']
+;
 
 ///// Function to generate pairs of random colors for the game
 
@@ -12,7 +13,10 @@ const generateRandomColors = (numofcards) => {
     return shuffledColors.slice(0, numofcards / 2).concat(shuffledColors.slice(0, numofcards / 2));
 };
 
+
+
 //////function to create the game board dynamically
+let currentLevel = 1;
 
 const createBoard = (numofcards) => {
     // get the game board element from the HTML
@@ -24,7 +28,8 @@ const createBoard = (numofcards) => {
     const shuffledColors = generateRandomColors(numofcards);
     //array to store selected cards during gameplay
     let selectedCards = [];
-
+ // Shuffle the array of shuffled colors
+    shuffledColors.sort(() => Math.random() - 0.5);
     //loop through each shuffled color
     shuffledColors.forEach(color => {
         //create a div element for each card
@@ -69,24 +74,42 @@ const createBoard = (numofcards) => {
     });
                             const continueButton = document.getElementById('continueButton');
                             continueButton.style.display = 'none'; // Hide the Next Level button
+ // Display current level number in the UI
+    const levelDisplay = document.getElementById("levelDisplay");
+    levelDisplay.textContent = `Level ${currentLevel}`;
 };
 
 // Function to proceed to the next level
-function nextLevel(numofcards) {
-    createBoard(numofcards); // Generate a new game board with increased number of cards
+function nextLevel() {
+    currentLevel++;
+    createBoard(currentLevel * 4); // Generate a new game board with increased number of cards
 
 }
 
 // Function to initialize the game
 function startGame() {
-
+    currentLevel = 1;
     const startButton = document.getElementById('startButton');
     startButton.style.display = 'none'; // Hide start button
     const gameContainer = document.getElementById('gameContainer');
     gameContainer.style.display = 'block'; // Show the game container
-    createBoard(4); // Start the game with 4 cards
+    createBoard(currentLevel * 4); // Start the game with 4 cards
 }
+// Function to restart the game
+function restartGame() {
+    const gameBoard = document.getElementById("gameBoard");
+    const continueButton = document.getElementById('continueButton');
+    continueButton.style.display = 'none';
+    gameBoard.innerHTML = ""; // Clear the game board
+    currentLevel = 1;
+    startGame(); // Restart the game from the beginning
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+    // Event listener for "Restart" button
+    const restartButton = document.getElementById('restartButton');
+    restartButton.addEventListener('click', restartGame);
+
     // Event listener for "Start Game" button
     const startButton = document.getElementById('startButton');
     startButton.addEventListener('click', startGame);
@@ -94,7 +117,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for "Continue to Next Level" button
     const continueButton = document.getElementById('continueButton');
     continueButton.addEventListener('click', () => {
-        nextLevel(document.querySelectorAll('.card').length + 4); // Proceed to the next level with an increased number of cards
+        const numofcards = document.querySelectorAll('.card').length; // Proceed to the next level with an increased number of cards
+    nextLevel(numofcards);
     });
 });
+
+
+
+
+
+
+
+
 

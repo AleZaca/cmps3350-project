@@ -22,13 +22,15 @@
 
 
     #gameBoard {
-      width: 500px;
+      width: auto;
       height: 400px;
       border: 15px solid white;
-      padding: 50px;
+      padding: 40px;
       margin-left: auto;
       margin-right: auto;
       margin-top: 50px;
+      flex-wrap: wrap;
+      justify content: center;
 
       background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
       font-family: 'Georgia', sans-serif;
@@ -38,8 +40,8 @@
       width: 100px;
       height: 100px;
       margin: 5px;
-      float: left; 
       cursor: pointer;
+      float:left;
       background-color:gray;
     }
   </style>
@@ -60,11 +62,17 @@
 
 <div>
         <div id="gameContainer" style="display:none">
+    <h2 id="levelDisplay"></h2> <!-- Add this line to display the level -->
+
             <div id="gameBoard"></div>
+            <button id="restartButton">Restart</button>
+
             <button id="continueButton" style="display:none">Continue</button>
         </div>
         <button id="startButton">Start Game</button>
-    </div>
+  <a href="display_scores.php">View High Scores</a>
+    
+</div>
 
 
   <script src="script.js"></script>

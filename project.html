@@ -37,6 +37,8 @@
 
       background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
       font-family: 'Georgia', sans-serif;
+         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
     }
 
     .card {
@@ -45,13 +47,55 @@
       margin: 5px;
       cursor: pointer;
       float:left;
+
       background-color:gray;
+
     }
+
+#startButton {
+      background-color: transparent;
+      border: none;
+      color: white;
+      padding: 120px 180px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 24px;
+      margin-top: 20px;
+      cursor: pointer;
+      
+      background-image: url('https://img1.picmix.com/output/stamp/normal/7/6/1/7/2047167_25e21.gif');
+      background-size: cover;
+    }
+
+    #startButton:hover {
+      opacity: 0.6;
+    }
+
+.card.flipped {
+        transform: rotateY(180deg);
+        transition: transform 0.5s;
+    }
+
+
+button:hover {
+      background-color: #45a049;
+    }
+
+.rainbow-text {
+      font-size: 48px;
+      background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+
   </style>
 </head>
 <body>
 
-  <h2>Rainbow Rumble</h2>
+  <h1 class="rainbow-text">Rainbow Rumble</h1>
 
   <p>Objective: Match the pairs of colored cards by flipping them over.</p>
 
@@ -75,11 +119,13 @@
 
             <button id="continueButton" style="display:none">Continue</button>
         </div>
-        <button id="startButton">Start Game</button>
-  <a href="display_scores.php">View High Scores</a>
+        <button id="startButton"></button>
+ 
     
 </div>
-
+<audio id="flipSound">
+        <source src="Card-flip-sound-effect.mp3" type="audio/mpeg">
+    </audio>
   <script src="script.js"></script>
 </body>
 </html>

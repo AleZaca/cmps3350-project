@@ -1,7 +1,6 @@
 ////array containing different colors for the game
 
-const colors = ['#ffd7ee', '#ef8f9f', '#de484f', '#ce0000', '#dd5500', '#edaa00', '#fcff00', '#a8e000', '#54c000', '#00a100', '#006b55', '#0036aa', '#0000ff', '#2300cf', '#45009f', '#68006e']
-;
+const colors = ['#ffd7ee', '#ef8f9f', '#de484f', '#ce0000', '#dd5500', '#edaa00', '#fcff00', '#a8e000', '#54c000', '#00a100', '#006b55', '#0036aa', '#0000ff', '#2300cf', '#45009f', '#68006e'];
 
 ///// Function to generate pairs of random colors for the game
 
@@ -12,8 +11,6 @@ const generateRandomColors = (numofcards) => {
     const shuffledColors = duplicatedColors.sort(() => Math.random() - 0.5);
     return shuffledColors.slice(0, numofcards / 2).concat(shuffledColors.slice(0, numofcards / 2));
 };
-
-
 
 //////function to create the game board dynamically
 let currentLevel = 1;
@@ -28,7 +25,7 @@ const createBoard = (numofcards) => {
     const shuffledColors = generateRandomColors(numofcards);
     //array to store selected cards during gameplay
     let selectedCards = [];
- // Shuffle the array of shuffled colors
+    // Shuffle the array of shuffled colors
     shuffledColors.sort(() => Math.random() - 0.5);
     //loop through each shuffled color
     shuffledColors.forEach(color => {
@@ -43,9 +40,13 @@ const createBoard = (numofcards) => {
 
         card.addEventListener("click", () => {
             //check if the card is already matched or the maximum number of selected cards(2) is reached
+const flipSound = document.getElementById("flipSound");
+            flipSound.play();
+
             if (!selectedCards.includes(card) && selectedCards.length < 2) {
+                                    flipCard(card);
                 //changes the color of the card when it is clicked
-                card.style.backgroundColor = color;
+             card.style.backgroundColor = color;
                 //add the selected card to the array
                 selectedCards.push(card);
                 //check if two cards are selected
@@ -54,6 +55,8 @@ const createBoard = (numofcards) => {
                     setTimeout(() => {
                         if (selectedCards[0].style.backgroundColor !== selectedCards[1].style.backgroundColor) {
                             selectedCards.forEach(card => {
+  //                              card.classList.remove('flipped');/////////////////////////////////////////////
+                                                                    flipCard(card);
                                 card.style.backgroundColor = "gray";
                             });
                         } else {
@@ -72,12 +75,16 @@ const createBoard = (numofcards) => {
         //append the card to the game board
         gameBoard.appendChild(card);
     });
-                            const continueButton = document.getElementById('continueButton');
-                            continueButton.style.display = 'none'; // Hide the Next Level button
- // Display current level number in the UI
+    const continueButton = document.getElementById('continueButton');
+    continueButton.style.display = 'none'; // Hide the Next Level button
+    // Display current level number in the UI
     const levelDisplay = document.getElementById("levelDisplay");
     levelDisplay.textContent = `Level ${currentLevel}`;
 };
+
+function flipCard(card) {
+        card.classList.toggle('flipped');
+    }
 
 // Function to proceed to the next level
 function nextLevel() {
@@ -118,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const continueButton = document.getElementById('continueButton');
     continueButton.addEventListener('click', () => {
         const numofcards = document.querySelectorAll('.card').length; // Proceed to the next level with an increased number of cards
-    nextLevel(numofcards);
+        nextLevel(numofcards);
     });
 });
 

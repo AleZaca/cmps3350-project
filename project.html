@@ -42,6 +42,7 @@
       margin: 5px;
       float: left; 
       cursor: pointer;
+      background-color:gray;
     }
   </style>
 </head>
@@ -57,9 +58,19 @@
 
   <p>Scoring: The game is not timed. Focus on accuracy.</p>
 
+
   <p>Restarting:If you want to start over, hit the restart button below. </p>
 
-  <div id="gameBoard"></div>
+  <p> </p>
+
+<div>
+        <div id="gameContainer" style="display:none">
+            <div id="gameBoard"></div>
+            <button id="continueButton" style="display:none">Continue</button>
+        </div>
+        <button id="startButton">Start Game</button>
+    </div>
+
   <script src="script.js"></script>
 </body>
 </html>
